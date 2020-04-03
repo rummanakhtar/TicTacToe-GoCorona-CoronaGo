@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         Button button=(Button)findViewById(R.id.button);
         Button restart=(Button)findViewById(R.id.restart);
         int tappedCounter=Integer.parseInt(counter.getTag().toString());
-        if(gameState[tappedCounter]==2){
+        if(gameState[tappedCounter]==2){        //if unplayed
             gameState[tappedCounter]=currentPlayer;
             counter.setTranslationY(-1000f);
             if(currentPlayer==0){
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                         (gameState[winningPosition[0]]!=2)){
                     if(currentPlayer==1){
                         textView.setText("Doctor has won");
+
                     }
                     if(currentPlayer==0){
                         textView.setText("Corona has won");
@@ -47,7 +48,22 @@ public class MainActivity extends AppCompatActivity {
                     textView.setVisibility(View.VISIBLE);
                     button.setVisibility(View.VISIBLE);
                     restart.setVisibility(View.INVISIBLE);
-
+                    for(int i=0;i<gameState.length;i++){
+                        if(gameState[i]==2)
+                        gameState[i]=3;
+                    }
+                }else{
+                    boolean gameIsOver=true;
+                    for(int count: gameState){
+                        if(count==2)
+                            gameIsOver=false;
+                    }
+                    if(gameIsOver){
+                        textView.setText("It's a Tie");
+                        textView.setVisibility(View.VISIBLE);
+                        button.setVisibility(View.VISIBLE);
+                        restart.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
         }
